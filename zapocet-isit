@@ -45,46 +45,46 @@ FROM sutaz
 8.)
 SELECT COUNT(id) as pocet
 FROM klub
-where nazov like 'F%;
+WHERE nazov like 'F%;
 
 9.)
-SELECT* from sutaz where MONTH(datum)=11
+SELECT * from sutaz where MONTH(datum)=11
 
 10.)
 SELECT miesto, COUNT(z.id)/2
-from sutaz as s, zapas2 as z
-where z.id_sutaz=s.id
-group by miesto
+FROM sutaz as s, zapas2 as z
+WHERE z.id_sutaz=s.id
+GROUP BY miesto
 
-11.)
+11.) // priemerny pocet bodov jednotlivých klubov
 SELECT nazov, AVG (goly) as priemer
 from sutaz as s, zapas2 as z, klub as k
 where z.id_sutaz=s.id
 and z.id_klub=k.id
 group by k.id
 
-12.)
-SELECT nazov, SUM(body) as 'sucet bodov';
-from sutaz as s, zapas2 as z, klub as k
-where z.id_sutaz=s.id
-and z.id_klub=k.id
-group by k.id
+12.) // Vypíšte celkový počet bodov jednotlivých klubov
+SELECT nazov, SUM( z.body ) AS 'sucet bodov'
+FROM sutaz AS s, klub AS k, zapas2 AS z
+WHERE z.id_klub = k.id
+AND z.id_sutaz = s.id
+GROUP BY k.id
 
-13.)
+13.) // Vypíš zoznam klubov od najlepšieho po najhorší
 SELECT k.nazov, k.mesto, sum(body), sum(goly)
-from sutaz as s, zapas2 as z, klub as k
-where z.id_sutaz=s.id
-and z.id_klub=k.id
-group by k.id
-order by sum(body) desc, sum(goly) desc
+FROM sutaz as s, zapas2 as z, klub as k
+WHERE z.id_sutaz=s.id
+AND z.id_klub=k.id
+GROUP BY k.id
+ORDER BY sum(body) desc, sum(goly) desc
 
 14.) // Vypíš zoznam klubov, ktoré dali aspoň 50 gólov
 SELECT nazov, SUM (goly) as suma
-from sutaz as s, zapas2 as z, klub as k
-where z.id_sutaz=s.id
+FROM sutaz as s, zapas2 as z, klub as k
+WHERE z.id_sutaz=s.id
 and z.id_klub=k.id
-group by k.id
-having suma >=50
+GROUP by k.id
+HAVING suma >=50
 
 15.) // Zisti počet súťaží, ktoré sa konali na mieste, kde sídli niektorý z klubov
-SELECT count (id) from sutaz where miesto in(select mesto from klub)
+SELECT count (id) FROM sutaz WHERE miesto in(select mesto from klub)
