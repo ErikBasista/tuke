@@ -84,7 +84,7 @@ from sutaz as s, zapas2 as z, klub as k
 where z.id_sutaz=s.id
 and z.id_klub=k.id
 group by k.id
-having suma &gt;50
+having suma >50
 
 15.priklad
 SELECT count (id) from sutaz where miesto in(select mesto from klub)
