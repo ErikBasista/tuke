@@ -1,0 +1,90 @@
+1. pr.:
+SELECT nazov, datum, body, goly
+FROM zapas2 AS z, klub AS k, sutaz AS s
+WHERE z.id_sutaz = s.id
+AND z.id_klub = k.id
+
+2. pr.:
+SELECT nazov, datum, body, goly
+FROM zapas2 AS z, klub AS k, sutaz AS s
+WHERE z.id_sutaz = s.id
+AND z.id_klub = k.id
+ORDER BY datum
+
+3. pr.:
+SELECT nazov, datum, body, goly
+FROM zapas2 AS z, klub AS k, sutaz AS s
+WHERE z.id_sutaz = s.id
+AND z.id_klub = k.id
+ORDER BY goly DESC
+
+4. pr.:
+SELECT DISTINCT nazov
+FROM klub AS k, sutaz AS s, zapas2 AS z
+WHERE z.id_sutaz = s.id
+AND z.id_klub = k.id
+AND body =2
+AND s.miesto = 'Michalovce'
+
+5. pr.:
+SELECT DISTINCT nazov
+FROM klub AS k, sutaz AS s, zapas2 AS z
+WHERE z.id_sutaz = s.id
+AND z.id_klub = k.id
+AND body = 2
+AND (s.miesto = 'Presov' or s.miesto='Sabinov')
+
+6. pr.:
+SELECT COUNT(id)
+FROM klub
+
+7.priklad
+SELECT COUNT(id) as pocet
+FROM sutaz
+
+8.priklad
+SELECT COUNT(id) as pocet
+FROM klub
+where nazov like 'F%;
+
+9. pr.:
+SELECT* from sutaz where MONTH(datum)=11
+
+10.priklad
+SELECT miesto, COUNT(z.id)/2
+from sutaz as s, zapas2 as z
+where z.id_sutaz=s.id
+group by miesto
+
+11.priklad
+SELECT nazov, AVG (goly) as priemer
+from sutaz as s, zapas2 as z, klub as k
+where z.id_sutaz=s.id
+and z.id_klub=k.id
+group by k.id
+
+12.priklad
+SELECT nazov, SUM(body) as 'sucet bodov';
+from sutaz as s, zapas2 as z, klub as k
+where z.id_sutaz=s.id
+and z.id_klub=k.id
+group by k.id
+
+13.priklad
+SELECT k.nazov, k.mesto, sum(body), sum(goly)
+from sutaz as s, zapas2 as z, klub as k
+where z.id_sutaz=s.id
+and z.id_klub=k.id
+group by k.id
+order by sum(body) desc, sum(goly) desc
+
+14.priklad
+SELECT nazov, SUM (goly) as suma
+from sutaz as s, zapas2 as z, klub as k
+where z.id_sutaz=s.id
+and z.id_klub=k.id
+group by k.id
+having suma &gt;50
+
+15.priklad
+SELECT count (id) from sutaz where miesto in(select mesto from klub)
