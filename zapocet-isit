@@ -1,24 +1,24 @@
-1.)
+1.) // Vypíš zoznam zápasov, kde bude uvedený názov, dátum, body a góly
 SELECT nazov, datum, body, goly
 FROM zapas2 AS z, klub AS k, sutaz AS s
 WHERE z.id_sutaz = s.id
 AND z.id_klub = k.id
 
-2.)
+2.) // Vypíš zoznam zápasov, kde bude uvedený názov, dátum, body a góly - ZORADENE podľa dátumu
 SELECT nazov, datum, body, goly
 FROM zapas2 AS z, klub AS k, sutaz AS s
 WHERE z.id_sutaz = s.id
 AND z.id_klub = k.id
 ORDER BY datum
 
-3.)
+3.) // Vypíš zoznam zápasov, kde bude uvedený názov, dátum, body a góly zoradené podľa počtu gólov ZOSTUPNE
 SELECT nazov, datum, body, goly
 FROM zapas2 AS z, klub AS k, sutaz AS s
 WHERE z.id_sutaz = s.id
 AND z.id_klub = k.id
 ORDER BY goly DESC
 
-4.)
+4.) // Zobraz zoznam klubov, ktoré vyhrali v Michalovciach
 SELECT DISTINCT nazov
 FROM klub AS k, sutaz AS s, zapas2 AS z
 WHERE z.id_sutaz = s.id
@@ -26,7 +26,7 @@ AND z.id_klub = k.id
 AND body =2
 AND s.miesto = 'Michalovce'
 
-5.)
+5.) // Zobraz zoznam klubov, ktoré vyhrali v PO alebo SB
 SELECT DISTINCT nazov
 FROM klub AS k, sutaz AS s, zapas2 AS z
 WHERE z.id_sutaz = s.id
@@ -34,23 +34,21 @@ AND z.id_klub = k.id
 AND body = 2
 AND (s.miesto = 'Presov' or s.miesto='Sabinov')
 
-6.)
+6.) // Zisti pošet klubov
 SELECT COUNT(id)
 FROM klub
 
-7.)
+7.) // Zisti počet súťaží
 SELECT COUNT(id) as pocet
 FROM sutaz
 
-8.)
-SELECT COUNT(id) as pocet
-FROM klub
-WHERE nazov like 'F%;
+8.) // Vypíš všetky údaje o klube, ktorého názov začína na F
+SELECT * FROM klub WHERE nazov LIKE 'F%'
 
-9.)
-SELECT * from sutaz where MONTH(datum)=11
+9.) // Vypíš všetky údaje o súťažiach, ktoré sa konali v novembri
+SELECT * FROM sutaz WHERE MONTH(datum)= 11
 
-10.)
+10.) // Vypíš počet zápasov na jednotlivých miestach
 SELECT miesto, COUNT(z.id)/2
 FROM sutaz as s, zapas2 as z
 WHERE z.id_sutaz=s.id
